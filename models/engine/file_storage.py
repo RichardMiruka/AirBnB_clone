@@ -52,7 +52,4 @@ class FileStorage:
             with open(FileStorage.__file_path) as f:
                 data = json.load(f)
                 for key, value in data.items():
-                    class_name = value['__class__']
-                    m_class = model_class(class_name)
-                    if m_class:
-                        self.new(m_class(**value))
+                    self.new(model_class[value['__class__']](**value))

@@ -5,6 +5,7 @@ Module that contains the entry of the command interpreter
 
 import cmd
 from models.base_model import BaseModel
+from models import storage
 
 
 class HBNBCommand(cmd.Cmd):
@@ -54,6 +55,56 @@ class HBNBCommand(cmd.Cmd):
         myModel = dct[model_type]()
         print(myModel.id)
         myModel.save()
+
+    def do_show(self, arg):
+        """
+        print string representation of instance based on class name
+        """
+
+        if not arg:
+            print("** class name missing **")
+            return
+        line = arg.split(' ')
+        if line[0] not in HBNBCommand.model_classes:
+            print("** class doesn't exist **")
+            return
+        elif len(line) == 1:
+            print("** instance id missing **")
+        else:
+            objs = storage.all()
+            for ke, value in objs.items():
+                name = value.__class__.__name__
+                obj_id = value.id
+                if name == line[0] and obj_id == line[1].strip('"'):
+                    print(value)
+                    return
+            print("**no instance found **")
+
+    def do_destroy(self, arg):
+        """
+        Deletes an instance based on class name and id
+        """
+
+        if not arg:
+            print("** class name missing **")
+            return
+        line = arg.split(' ')
+        if line[0] not in HBNBCommand.model_classes:
+            print("** class doesn't exist **")
+            return
+        elif len(line) == 1:
+            print("**  instance id missing **")
+        else:
+            objs = storage.all()
+            for key, value in objs.items():
+                name = value.__class__.__name__
+                obj_id = value.id
+                if name == line[0] and obj_id == line[1].strip('"'):
+                    del value
+                    del storage._FileStorage__objects[key]
+                    storage.save()
+                    return
+            print("** no instance found **")
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
