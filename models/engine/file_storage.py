@@ -46,8 +46,9 @@ class FileStorage:
         deserializes JSON file to __objects
         """
         from models.base_model import BaseModel
+        from models.user import User
 
-        model_class = {'BaseModel': BaseModel}
+        model_class = {'BaseModel': BaseModel, 'User': User}
         if os.path.exists(FileStorage.__file_path) is True:
             with open(FileStorage.__file_path) as f:
                 data = json.load(f)

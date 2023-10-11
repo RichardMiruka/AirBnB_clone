@@ -6,6 +6,7 @@ Module that contains the entry of the command interpreter
 import cmd
 from models.base_model import BaseModel
 from models import storage
+from models.user import User
 
 
 class HBNBCommand(cmd.Cmd):
@@ -14,7 +15,7 @@ class HBNBCommand(cmd.Cmd):
 
     prompt = '(hbnb) '
 
-    model_classes = ['BaseModel']
+    model_classes = ['BaseModel', 'User']
 
     def do_quit(self, line):
         """ quits the program
@@ -50,7 +51,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return
         else:
-            dct = {'BaseModel': BaseModel}
+            dct = {'BaseModel': BaseModel, 'User': User}
 
         myModel = dct[model_type]()
         print(myModel.id)
@@ -126,7 +127,8 @@ class HBNBCommand(cmd.Cmd):
                 name = value.__class__.__name__
                 if name == line[0]:
                     inst_list += [value.__str__()]
-            print(inst_list)
+            if len(inst_list) != 0:
+                print(inst_list)
 
     def do_update(self, arg):
         """
