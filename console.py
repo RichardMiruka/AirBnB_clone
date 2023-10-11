@@ -128,5 +128,39 @@ class HBNBCommand(cmd.Cmd):
                     inst_list += [value.__str__()]
             print(inst_list)
 
+    def do_update(self, arg):
+        """
+        updates instance based on classname and id
+        """
+
+        if not arg:
+            print("** class name missing **")
+            return
+        line = arg.split(' ')
+        if line[0] not in HBNBCommand.model_classes:
+            print("** class doesn't exist **")
+            return
+        elif len(line) == 1:
+            print("** instance id missing **")
+            return
+        else:
+            obj = storage.all()
+            for key, value in obj.items():
+                name = value.__class__.__name__
+                obj_id = value.id
+                if name == line[0] and obj_id == line[1].strip('"'):
+                    if len(line) == 2:
+                        print("attribute name missing **")
+                        return
+                    elif len(line) == 3:
+                        print("** value missing **")
+                        return
+                    else:
+                        setattr(value, line[2], line[3])
+                        storage.save()
+                return
+            print("** no instance found **")
+
+
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
