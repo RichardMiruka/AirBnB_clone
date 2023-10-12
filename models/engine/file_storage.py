@@ -47,8 +47,14 @@ class FileStorage:
         """
         from models.base_model import BaseModel
         from models.user import User
+        from models.state import State
+        from models.amenity import Amenity
+        from models.city import City
+        from models.place import Place
+        from models.review import Review
 
-        model_class = {'BaseModel': BaseModel, 'User': User}
+        model_class = {'BaseModel': BaseModel, 'User': User, 'State': State,\
+                'Amenity': Amenity, 'City': City, 'Place': Place, 'Review': Review}
         if os.path.exists(FileStorage.__file_path) is True:
             with open(FileStorage.__file_path) as f:
                 data = json.load(f)

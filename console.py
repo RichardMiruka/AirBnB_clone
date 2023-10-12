@@ -7,6 +7,11 @@ import cmd
 from models.base_model import BaseModel
 from models import storage
 from models.user import User
+from models.state import State
+from models.amenity import Amenity
+from models.city import City
+from models.place import Place
+from models.review import Review
 
 
 class HBNBCommand(cmd.Cmd):
@@ -15,7 +20,7 @@ class HBNBCommand(cmd.Cmd):
 
     prompt = '(hbnb) '
 
-    model_classes = ['BaseModel', 'User']
+    model_classes = ['BaseModel', 'User', 'State', 'Amenity', 'City', 'Place', 'Review']
 
     def do_quit(self, line):
         """ quits the program
@@ -51,7 +56,8 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return
         else:
-            dct = {'BaseModel': BaseModel, 'User': User}
+            dct = {'BaseModel': BaseModel, 'User': User, 'State': State,\
+                    'Amenity': Amenity, 'City': City, 'Place': Place, 'Review': Review}
 
         myModel = dct[model_type]()
         print(myModel.id)
@@ -73,7 +79,7 @@ class HBNBCommand(cmd.Cmd):
             print("** instance id missing **")
         else:
             objs = storage.all()
-            for ke, value in objs.items():
+            for key, value in objs.items():
                 name = value.__class__.__name__
                 obj_id = value.id
                 if name == line[0] and obj_id == line[1].strip('"'):

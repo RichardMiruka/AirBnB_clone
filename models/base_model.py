@@ -28,6 +28,13 @@ class BaseModel:
                     value = datetime.strptime(kwargs[key], '%Y-%m-%dT%H:%M:%S.%f')
                     if key != '__class__':
                         setattr(self, key, value)
+    def __str__(self):
+        """
+        Returns the string representation of the dict id
+        """
+        class_name = self.__class__.__name__
+        my_dict = {k: v for (k, v) in self.__dict__.items() if (not v) is False}
+        return "[" + class_name + "] " + "(" + self.id + ") " + str(my_dict)
     
     def save(self):
         """
@@ -52,11 +59,3 @@ class BaseModel:
                     new_dict[key] = value
         new_dict['__class__'] = self.__class__.__name__
         return new_dict
-
-    def __str__(self):
-        """
-        Returns the string representation of the dict id
-        """
-        class_name = self.__class__.__name__
-        my_dict = {k: v for (k, v) in self.__dict__.items() if (not v) is False}
-        return "[" + class_name + "] " + "(" + self.id + ") " + str(my_dict)
