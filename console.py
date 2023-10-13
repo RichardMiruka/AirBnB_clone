@@ -128,11 +128,7 @@ class HBNBCommand(cmd.Cmd):
             return
         else:
             objs = storage.all()
-            inst_list = []
-            for key, value in objs.items():
-                name = value.__class__.__name__
-                if name == line[0]:
-                    inst_list += [value.__str__()]
+            inst_list = [str(obj) for obj in objs.values() if obj.__class__.__name__ == line[0]]
             if len(inst_list) != 0:
                 print(inst_list)
 
