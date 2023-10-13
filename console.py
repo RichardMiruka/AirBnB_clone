@@ -22,6 +22,8 @@ class HBNBCommand(cmd.Cmd):
 
     model_classes = ['BaseModel', 'User', 'State', 'Amenity', 'City', 'Place', 'Review']
 
+    cmds = ['create', 'show', 'update', 'all', 'destroy', 'count']
+
     def do_quit(self, line):
         """ quits the program
         """
@@ -45,6 +47,20 @@ class HBNBCommand(cmd.Cmd):
         """
 
         pass
+
+    def precmd(self, arg):
+        """
+        used to process the command before they are executed
+        """
+
+        if '.' in arg:
+            model_class = arg.split('.')
+            cm1 = model_class[1].split('(')
+            cm2 = cm1[1].split(')')
+            if model_class[0] in HBNBCommand.model_classes and HBNBCommand.cmds:
+                arg = cm1[0] + ' ' + model_class[0] + ' ' + cm2[0]
+        return arg
+
     def do_create(self, model_type):
         """ creates a new instance of BaseModel
         """
@@ -62,6 +78,19 @@ class HBNBCommand(cmd.Cmd):
         myModel = dct[model_type]()
         print(myModel.id)
         myModel.save()
+
+    def do_count(self, arg):
+        """
+        Used to count the number of instances
+        """
+
+        count = 0
+        objs = storage.all()
+        for key, value in objs.items():
+            model_class = key.split('.')
+            if model_class[0] == arg:
+                count = count + 1
+        print(count)
 
     def do_show(self, arg):
         """
