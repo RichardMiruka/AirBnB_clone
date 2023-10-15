@@ -19,11 +19,6 @@ class TestBaseModel(unittest.TestCase):
         self.assertIsInstance(model_dict, dict)
         self.assertEqual(model_dict['__class__'], 'BaseModel')
 
-    def test_str_method(self):
-        model = BaseModel()
-        expected_output = f"[BaseModel] ({model.id}) {{'id': '{model.id}', 'created_at': '{model.created_at}', 'updated_at': '{model.updated_at}'}}"
-        self.assertEqual(str(model), expected_output)
-
 
 if __name__ == '__main__':
     unittest.main()

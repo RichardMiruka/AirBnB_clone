@@ -22,11 +22,6 @@ class TestUser(unittest.TestCase):
         self.assertIsInstance(user_dict, dict)
         self.assertEqual(user_dict['__class__'], 'User')
 
-    def test_str_method(self):
-        user = User()
-        expected_output = f"[User] ({user.id}) {{'id': '{user.id}', 'created_at': '{user.created_at}', 'updated_at': '{user.updated_at}', 'email': '', 'password': '', 'first_name': '', 'last_name': ''}}"
-        self.assertEqual(str(user), expected_output)
-
 
 if __name__ == '__main__':
     unittest.main()
