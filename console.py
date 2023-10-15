@@ -127,7 +127,6 @@ class HBNBCommand(cmd.Cmd):
         line = arg.split(' ')
         if line[0] not in HBNBCommand.model_classes:
             print("** class doesn't exist **")
-            return
         elif len(line) == 1:
             print("**  instance id missing **")
         else:
@@ -154,7 +153,6 @@ class HBNBCommand(cmd.Cmd):
         line = arg.split(' ')
         if line[0] not in HBNBCommand.model_classes:
             print("** class doesn't exist **")
-            return
         else:
             objs = storage.all()
             inst_list = [str(obj) for obj in objs.values() if
@@ -191,7 +189,7 @@ class HBNBCommand(cmd.Cmd):
                     else:
                         setattr(value, line[2], line[3])
                         storage.save()
-                return
+                    return
             print("** no instance found **")
 
 
