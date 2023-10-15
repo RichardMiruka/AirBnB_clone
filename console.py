@@ -55,7 +55,7 @@ class HBNBCommand(cmd.Cmd):
         used to process the command before they are executed
         """
 
-        if '.' in arg:
+        if '.' in arg and '(' in arg and ')' in arg:
             model_class = arg.split('.')
             cm1 = model_class[1].split('(')
             cm2 = cm1[1].split(')')
