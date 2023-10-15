@@ -8,5 +8,4 @@ This team project is part of the ALX School Software Engineering program. </br>
 It represents the first step towards building a full web application: the AirBnB clone.
 
 This first step consists of:
-- a custom command-line interface for data management,
-- and the base classes for the storage of this data.
+- a custom command-line interface for data management
