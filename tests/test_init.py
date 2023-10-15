@@ -12,7 +12,7 @@ class TestInit(unittest.TestCase):
 
     def test_reload_method(self):
         self.assertTrue(hasattr(storage, 'reload'))
-        
+
         try:
             storage.reload()
         except Exception as e:

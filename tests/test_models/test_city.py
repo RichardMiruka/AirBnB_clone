@@ -41,5 +41,6 @@ class test_city(unittest.TestCase):
         self.assertTrue(hasattr(self.cls, 'created_at'))
         self.assertTrue(hasattr(self.cls, 'updated_at'))
 
+
 if __name__ == '__main__':
     unittest.main()

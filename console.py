@@ -20,7 +20,8 @@ class HBNBCommand(cmd.Cmd):
 
     prompt = '(hbnb) '
 
-    model_classes = ['BaseModel', 'User', 'State', 'Amenity', 'City', 'Place', 'Review']
+    model_classes = ['BaseModel', 'User', 'State', 'Amenity',
+                     'City', 'Place', 'Review']
 
     cmds = ['create', 'show', 'update', 'all', 'destroy', 'count']
 
@@ -35,7 +36,7 @@ class HBNBCommand(cmd.Cmd):
         """
         print('')
 
-        return  True
+        return True
 
     def help_help(self):
         """ used to show description of command called"""
@@ -57,7 +58,8 @@ class HBNBCommand(cmd.Cmd):
             model_class = arg.split('.')
             cm1 = model_class[1].split('(')
             cm2 = cm1[1].split(')')
-            if model_class[0] in HBNBCommand.model_classes and HBNBCommand.cmds:
+            if model_class[0] in HBNBCommand.model_classes and \
+                    HBNBCommand.cmds:
                 arg = cm1[0] + ' ' + model_class[0] + ' ' + cm2[0]
         return arg
 
@@ -72,8 +74,9 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return
         else:
-            dct = {'BaseModel': BaseModel, 'User': User, 'State': State,\
-                    'Amenity': Amenity, 'City': City, 'Place': Place, 'Review': Review}
+            dct = {'BaseModel': BaseModel, 'User': User, 'State': State,
+                   'Amenity': Amenity, 'City': City, 'Place': Place,
+                   'Review': Review}
 
         myModel = dct[model_type]()
         print(myModel.id)
@@ -157,7 +160,8 @@ class HBNBCommand(cmd.Cmd):
             return
         else:
             objs = storage.all()
-            inst_list = [str(obj) for obj in objs.values() if obj.__class__.__name__ == line[0]]
+            inst_list = [str(obj) for obj in objs.values() if
+                         obj.__class__.__name__ == line[0]]
             if len(inst_list) != 0:
                 print(inst_list)
 

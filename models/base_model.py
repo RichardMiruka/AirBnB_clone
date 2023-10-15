@@ -25,17 +25,20 @@ class BaseModel:
         else:
             for key, value in kwargs.items():
                 if key == 'created_at' or key == 'updated_at':
-                    value = datetime.strptime(kwargs[key], '%Y-%m-%dT%H:%M:%S.%f')
+                    value = datetime.strptime(kwargs[key],
+                                              '%Y-%m-%dT%H:%M:%S.%f')
                     if key != '__class__':
                         setattr(self, key, value)
+
     def __str__(self):
         """
         Returns the string representation of the dict id
         """
         class_name = self.__class__.__name__
-        my_dict = {k: v for (k, v) in self.__dict__.items() if (not v) is False}
-        return "[" + class_name + "] " + "(" + self.id + ") " + str(my_dict)
-    
+        my_dict = {k: v for (k, v) in self.__dict__.items()
+                   if (not v) is False}
+        return "[" + class_name + "]" + "(" + self.id + ") " + str(my_dict)
+
     def save(self):
         """
         updates public instance attribute updated_at
