@@ -37,7 +37,7 @@ class BaseModel:
         class_name = self.__class__.__name__
         my_dict = {k: v for (k, v) in self.__dict__.items()
                    if (not v) is False}
-        return "[" + class_name + "]" + "(" + self.id + ") " + str(my_dict)
+        return "[" + class_name + "]" + " (" + self.id + ") " + str(my_dict)
 
     def save(self):
         """

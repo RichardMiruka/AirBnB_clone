@@ -12,6 +12,7 @@ from models.amenity import Amenity
 from models.city import City
 from models.place import Place
 from models.review import Review
+import shlex
 
 
 class HBNBCommand(cmd.Cmd):
@@ -63,24 +64,21 @@ class HBNBCommand(cmd.Cmd):
                 arg = cm1[0] + ' ' + model_class[0] + ' ' + cm2[0]
         return arg
 
-    def do_create(self, model_type):
+    def do_create(self, arg):
         """ creates a new instance of BaseModel
         """
 
-        if not model_type:
+        if not arg:
             print("** class name missing **")
-            return
-        elif model_type not in HBNBCommand.model_classes:
+        elif arg not in HBNBCommand.model_classes:
             print("** class doesn't exist **")
-            return
         else:
             dct = {'BaseModel': BaseModel, 'User': User, 'State': State,
                    'Amenity': Amenity, 'City': City, 'Place': Place,
                    'Review': Review}
-
-        myModel = dct[model_type]()
-        print(myModel.id)
-        myModel.save()
+            myModel = dct[model_type]()
+            print(myModel.id)
+            myModel.save()
 
     def do_count(self, arg):
         """
@@ -106,7 +104,6 @@ class HBNBCommand(cmd.Cmd):
         line = arg.split(' ')
         if line[0] not in HBNBCommand.model_classes:
             print("** class doesn't exist **")
-            return
         elif len(line) == 1:
             print("** instance id missing **")
         else:
@@ -117,7 +114,7 @@ class HBNBCommand(cmd.Cmd):
                 if name == line[0] and obj_id == line[1].strip('"'):
                     print(value)
                     return
-            print("**no instance found **")
+            print("** no instance found **")
 
     def do_destroy(self, arg):
         """
@@ -173,13 +170,14 @@ class HBNBCommand(cmd.Cmd):
         if not arg:
             print("** class name missing **")
             return
-        line = arg.split(' ')
+        b = ""
+        for args in arg.split(','):
+            b = b + args
+        line = shlex.split(b)
         if line[0] not in HBNBCommand.model_classes:
             print("** class doesn't exist **")
-            return
         elif len(line) == 1:
             print("** instance id missing **")
-            return
         else:
             obj = storage.all()
             for key, value in obj.items():
@@ -187,11 +185,9 @@ class HBNBCommand(cmd.Cmd):
                 obj_id = value.id
                 if name == line[0] and obj_id == line[1].strip('"'):
                     if len(line) == 2:
-                        print("attribute name missing **")
-                        return
+                        print("** attribute name missing **")
                     elif len(line) == 3:
                         print("** value missing **")
-                        return
                     else:
                         setattr(value, line[2], line[3])
                         storage.save()

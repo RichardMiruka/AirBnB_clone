@@ -57,7 +57,7 @@ class FileStorage:
                        'Amenity': Amenity, 'City': City, 'Place': Place,
                        'Review': Review}
         if os.path.exists(FileStorage.__file_path) is True:
-            with open(FileStorage.__file_path) as f:
+            with open(FileStorage.__file_path, 'r') as f:
                 data = json.load(f)
                 for key, value in data.items():
                     self.new(model_class[value['__class__']](**value))
