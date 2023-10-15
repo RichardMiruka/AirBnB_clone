@@ -76,7 +76,7 @@ class HBNBCommand(cmd.Cmd):
             dct = {'BaseModel': BaseModel, 'User': User, 'State': State,
                    'Amenity': Amenity, 'City': City, 'Place': Place,
                    'Review': Review}
-            myModel = dct[model_type]()
+            myModel = dct[arg]()
             print(myModel.id)
             myModel.save()
 
